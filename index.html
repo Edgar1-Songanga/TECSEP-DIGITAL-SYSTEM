@@ -1,0 +1,209 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Global Oil & Gas Intelligence Platform</title><!-- React CDN --><script src="https://unpkg.com/react@18/umd/react.production.min.js"></script><script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script><script src="https://unpkg.com/@babel/standalone/babel.min.js"></script><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"><style>
+:root{
+  --bg:#060b16;
+  --panel:#0f172a;
+  --card:#111c33;
+  --text:#e5e7eb;
+  --muted:rgba(255,255,255,0.6);
+  --accent:#f59e0b;
+  --good:#22c55e;
+  --warn:#f59e0b;
+  --bad:#ef4444;
+  --blue:#3b82f6;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter;
+  background:radial-gradient(circle at top,#0b1224,#050814);
+  color:var(--text);
+}
+
+.container{
+  padding:24px;
+  max-width:1200px;
+  margin:auto;
+}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+h1{font-size:20px;margin:0}
+
+.badge{
+  background:linear-gradient(90deg,var(--accent),#ffcc66);
+  color:#000;
+  padding:6px 10px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:600;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:16px;
+}
+
+.card{
+  background:linear-gradient(180deg,var(--card),#0b1220);
+  padding:16px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.05);
+}
+
+.metric{
+  font-size:26px;
+  font-weight:700;
+}
+
+.small{
+  font-size:12px;
+  opacity:0.7;
+}
+
+.button{
+  background:linear-gradient(90deg,var(--blue),#2563eb);
+  padding:10px 12px;
+  border-radius:10px;
+  cursor:pointer;
+  margin-top:10px;
+  text-align:center;
+  font-weight:500;
+}
+
+.status-ok{color:var(--good)}
+.status-warn{color:var(--warn)}
+.status-bad{color:var(--bad)}
+
+.map{
+  height:160px;
+  border-radius:12px;
+  background:radial-gradient(circle at 30% 30%,rgba(59,130,246,0.25),transparent 60%),
+             radial-gradient(circle at 70% 60%,rgba(245,158,11,0.2),transparent 60%),
+             #0a1222;
+  position:relative;
+}
+
+.pin{
+  position:absolute;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 10px var(--accent);
+}
+.pin.p1{top:40px;left:60px}
+.pin.p2{top:90px;left:140px}
+.pin.p3{top:120px;left:220px}
+
+.alert{
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%{opacity:1}
+  50%{opacity:0.4}
+  100%{opacity:1}
+}
+
+</style></head>
+<body><div id="root"></div><script type="text/babel">
+
+const Card = ({title, value, subtitle}) => (
+  <div className="card">
+    <div className="small">{title}</div>
+    <div className="metric">{value}</div>
+    <div className="small">{subtitle}</div>
+  </div>
+);
+
+function App(){
+
+  const [insight, setInsight] = React.useState("Awaiting system scan...");
+  const [report, setReport] = React.useState("No report generated yet.");
+
+  function runAI(){
+    setInsight("Prediction: Valve C-03 failure risk in 72h. Recommended immediate intervention to prevent $18,000 loss.");
+  }
+
+  function generateReport(){
+    setReport("System Summary: 3 critical alerts. Efficiency 96%. Estimated monthly loss prevention: $148,000.");
+  }
+
+  return (
+    <div className="container">
+
+      <div className="header">
+        <h1>Global Oil & Gas Intelligence Platform</h1>
+        <div className="badge">REAL-TIME SYSTEM</div>
+      </div>
+
+      <div className="grid">
+        <Card title="Field Teams" value="18" subtitle="Global deployment" />
+        <Card title="Active Operations" value="42" subtitle="Oil & gas field units" />
+        <Card title="Efficiency" value="96%" subtitle="Optimized performance" />
+        <Card title="Critical Alerts" value="3" subtitle="Requires attention" />
+      </div>
+
+      <div className="grid" style={{marginTop:16}}>
+
+        <div className="card">
+          <div className="small">Operational Map</div>
+          <div className="map">
+            <div className="pin p1"></div>
+            <div className="pin p2"></div>
+            <div className="pin p3"></div>
+          </div>
+          <div className="small">Luanda • Offshore • Terminal Zones</div>
+        </div>
+
+        <div className="card">
+          <div className="small">Equipment Health</div>
+          <div className="small status-ok">Pump A12 - Operational</div>
+          <div className="small status-bad">Valve C03 - Failure Detected</div>
+          <div className="small status-warn">Filter B07 - Maintenance Due</div>
+        </div>
+
+      </div>
+
+      <div className="grid" style={{marginTop:16}}>
+
+        <div className="card">
+          <div className="small">Live Field Activity</div>
+          <div className="small">Alpha Team - Tank Cleaning (Delayed)</div>
+          <div className="small">Bravo Team - Inspection (Completed)</div>
+          <div className="small">Delta Team - Maintenance (Active)</div>
+        </div>
+
+        <div className="card">
+          <div className="small">AI Prediction Engine</div>
+          <div style={{marginTop:10}}>{insight}</div>
+          <div className="button" onClick={runAI}>Run Predictive Analysis</div>
+        </div>
+
+      </div>
+
+      <div className="card" style={{marginTop:16}}>
+        <div className="small">Executive Intelligence Summary</div>
+        <div style={{marginTop:10}} dangerouslySetInnerHTML={{__html: report}}></div>
+        <div className="button" onClick={generateReport}>Generate Executive Report</div>
+      </div>
+
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+
+</script></body>
+</html>
